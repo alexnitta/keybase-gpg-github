@@ -1,6 +1,6 @@
 This is a fork of [https://github.com/pstadler/keybase-gpg-github] and also includes info from: [https://www.ahmadnassri.com/blog/github-gpg-keybase-pgp/]
 
-# Setup Keybase.io, GPG & Git to sign commits on GitHub
+# Set up Keybase.io, GPG & Git to sign commits on GitHub
 
 This is a step-by-step guide on how to create a GPG key on [keybase.io](https://keybase.io), adding it to a local GPG setup and use it with Git and GitHub.
 
