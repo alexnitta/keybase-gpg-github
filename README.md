@@ -54,7 +54,7 @@ $ open https://github.com/settings/keys
 # Click "New GPG key"
 
 $ keybase pgp export -q CB86A866E870EE00 | pbcopy # copy public key to clipboard
-# Paste key, save
+# Paste key into GitHub UI, save
 ```
 
 ## Import key to GPG on another host
@@ -99,42 +99,18 @@ export GPG_TTY
 
 ## Optional: Don't ask for password every time
 
-Install the needed software:
-
+### Tell GitHub about your GPG key
 ```sh
-$ brew install gpg-agent pinentry-mac
+$ git config user.signingkey <github_email> # per repository, or:
+$ git config --global user.signingkey <github_email> # global
+```
+You can now simply use -S or --gpg-sign to commit without having to provide the Key ID:
+```sh
+$ git commit -S
 ```
 
-Enable agent use:
-
+### Set all commits to be signed by default, no further need for -S or --gpg-sign per commit. (Git v2.0.0 and above):
 ```sh
-$ $EDITOR ~/.gnupg/gpg.conf
-# uncomment the use-agent line
+$ git config commit.gpgsign true # per repository, or:
+$ git config --global commit.gpgsign true # global
 ```
-
-Setup agent:
-
-```sh
-$ $EDITOR ~/.gnupg/gpg-agent.conf
-# Paste these lines:
-use-standard-socket
-pinentry-program /usr/local/bin/pinentry-mac
-```
-
-Link pinentry and agent together:
-
-```sh
-$ $EDITOR ~/.profile # or other file that is sourced every time
-# Paste these lines:
-if test -f ~/.gnupg/.gpg-agent-info -a -n "$(pgrep gpg-agent)"; then
-  source ~/.gnupg/.gpg-agent-info
-  export GPG_AGENT_INFO
-  GPG_TTY=$(tty)
-  export GPG_TTY
-else
-  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
-fi
-```
-
-Now `git commit -S`, it will ask your password and you can save it to OSX
-keychain.
