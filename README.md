@@ -81,14 +81,14 @@ $ $EDITOR ~/.gnupg/gpg.conf
 # Add line: default-key E870EE00
 ```
 
-## Optional: Disable TTY 
+## Optional: Disable TTY
 If you have problems with making autosigned commits from IDE or other software add no-tty config
 ```sh
 $ $EDITOR ~/.gnupg/gpg.conf
 # Add line: no-tty
 ```
 
-## Optional: Setting up TTY  
+## Optional: Setting up TTY
 Depending on your personal setup, you might need to define the tty for gpg
 whenever your passphrase is prompted. Otherwise, you might encounter an `Inappropriate
 ioctl for device` error.
@@ -99,7 +99,7 @@ GPG_TTY=$(tty)
 export GPG_TTY
 ```
 
-## Optional: Don't ask for password every time
+## Optional: Don't ask for password every time I commit
 
 ### Tell GitHub about your GPG key
 ```sh
@@ -116,3 +116,16 @@ $ git commit -S
 $ git config commit.gpgsign true # per repository, or:
 $ git config --global commit.gpgsign true # global
 ```
+
+## Optional: Don't ask for password every time I pull or push
+
+If prompted for your passphrase when pushing or pulling, like this:
+```sh
+git pull origin master
+Enter passphrase for key '<path_to_your_id_rsa>':
+```
+
+You can add the SSH key to your keychain:
+```
+ssh-add -K <path_to_your_id_rsa>
+Identity added: <path_to_your_id_rsa> (<path_to_your_id_rsa>)
