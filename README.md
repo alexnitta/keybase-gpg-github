@@ -135,6 +135,7 @@ Identity added: <path_to_your_id_rsa> (<path_to_your_id_rsa>)
 If you're on OSX Sierra, you will have to enter the passphrase again after a reboot. You can change this configuration by doing the following:
 
 B) You can set up a config file to tell `ssh` to use your key.
+[Original post] (http://apple.stackexchange.com/questions/48502/how-can-i-permanently-add-my-ssh-private-key-to-keychain-so-it-is-automatically)
 
 1. If you haven't already, create an ~/.ssh/config file. In other words, in the .ssh directory in your home dir, make a file called config.
 2. In that .ssh/config file, add the following lines:
