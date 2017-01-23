@@ -125,7 +125,28 @@ git pull origin master
 Enter passphrase for key '<path_to_your_id_rsa>':
 ```
 
-You can add the SSH key to your keychain:
+There are two options:
+
+A) You can add the SSH key to your keychain:
 ```
 ssh-add -K <path_to_your_id_rsa>
 Identity added: <path_to_your_id_rsa> (<path_to_your_id_rsa>)
+```
+If you're on OSX Sierra, you will have to enter the passphrase again after a reboot. You can change this configuration by doing the following:
+
+B) You can set up a config file to tell `ssh` to use your key.
+
+1. If you haven't already, create an ~/.ssh/config file. In other words, in the .ssh directory in your home dir, make a file called config.
+2. In that .ssh/config file, add the following lines:
+    ```
+    Host *
+      UseKeychain yes
+      AddKeysToAgent yes
+      IdentityFile ~/.ssh/id_rsa
+    ```
+    Change ~/.ssh/id_rsa to the actual filename of your private key. If you have other private keys in your ~.ssh directory, also add an IdentityFile line for each of them. For example, I have one additional line that reads IdentityFile ~/.ssh/id_ed25519 for a 2nd private key.
+
+    The UseKeychain yes is the key part, which tells SSH to look in your OSX keychain for the key passphrase.
+
+    Note that you will still need to ssh-add -K with the key the first time you use it to put the passphrase in the keychain in the first place, but not if you already have at least once.
+3. That's it! Next time you load any ssh connection, it will try the private keys you've specified, and it will look for their passphrase in the OSX keychain. No passphrase typing required.
