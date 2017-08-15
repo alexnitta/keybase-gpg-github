@@ -18,7 +18,12 @@ You should already have an account with Keybase and be signed in locally using `
 
 Make sure your local version of Git is at least 2.0 (`$ git --version`) to automatically sign all your commits. If that's not the case, use Homebrew to install the latest Git version: `$ brew install git`.
 
-## Create a new GPG key on keybase.io
+## 1. Install gpg if you don't have it yet
+```sh
+brew install gnupg gnupg2
+```
+
+## 2. Create a new GPG key on keybase.io
 
 ```sh
 $ keybase pgp gen --multi
@@ -35,12 +40,13 @@ $ keybase pgp gen --multi
 # ▶ INFO Exported new key to the local GPG keychain
 ```
 
-## Install gpg if you don't have it yet
+If you happened to do step 2 before step 1, you can do:
 ```sh
-brew install gnupg gnupg2
+curl https://keybase.io/<username>/pgp_keys.asc | gpg --import
 ```
+to import the keys from your keybase account to your local gpg.
 
-## Set up Git to sign all commits
+## 3. Set up Git to sign all commits
 
 ```sh
 $ gpg --list-secret-keys
@@ -54,7 +60,7 @@ $ git config --global user.signingkey E870EE00
 $ git config --global commit.gpgsign true
 ```
 
-## Add public GPG key to GitHub
+## 4. Add public GPG key to GitHub
 
 ```sh
 $ open https://github.com/settings/keys
@@ -64,7 +70,7 @@ $ keybase pgp export -q CB86A866E870EE00 | pbcopy # copy public key to clipboard
 # Paste key into GitHub UI, save
 ```
 
-## Import key to GPG on another host
+## 5. Import key to GPG on another host
 
 ```sh
 $ keybase pgp export
