@@ -35,6 +35,11 @@ $ keybase pgp gen --multi
 # ▶ INFO Exported new key to the local GPG keychain
 ```
 
+## Install gpg if you don't have it yet
+```sh
+brew install gnupg gnupg2
+```
+
 ## Set up Git to sign all commits
 
 ```sh
